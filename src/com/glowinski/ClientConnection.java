@@ -4,17 +4,18 @@ import java.io.*;
 import java.net.Socket;
 
 
-class Connection {
+class ClientConnection {
 
     private Socket socket;
     private String username;
-    //Strumienie wejścia i wyjścia aktualnego połączenia służace do wysyłąnia i odbierania wiadomości
+
     private BufferedReader input;
     private PrintWriter output;
+
     private ObjectOutputStream outToClient;
     private ObjectInputStream inFromClient;
-    private Connection(Socket socket, String username) {
 
+    private ClientConnection(Socket socket, String username) {
         try {
             this.socket = socket;
             this.username = username;
@@ -29,11 +30,11 @@ class Connection {
     }
 
     //Alternatywny konstruktor, gdy nie podany został username
-    Connection(Socket socket) {
+    ClientConnection(Socket socket) {
         this(socket, "Anonymous");
     }
 
-    //Klika getterów, żeby inne klasy miały dostęp do atrybutów tej klasy. W tym wypadku package protected.
+
     BufferedReader getInputBufferedReader() {
         return this.input;
     }
@@ -53,7 +54,6 @@ class Connection {
     String getUsername() {
         return this.username;
     }
-
 
     void closeConnection() {
         try {
