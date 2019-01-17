@@ -44,7 +44,7 @@ public class MySQLConnection {
                     .println("Error: " + e.toString());
             System.exit(4);
         }
-        System.out.print(" zamknięcie OK");
+        System.out.print(" Close OK");
     }
 
     void initializeConnectionToDB(){
@@ -56,7 +56,7 @@ public class MySQLConnection {
         con = connectToDatabase("18.197.197.247",
                 "PMI", "root", "Lamora");
         if (con != null)
-            System.out.print(" polaczenie OK\n");
+            System.out.print(" Connection OK\n");
     }
 
     private static Statement createStatement(Connection connection) {
@@ -90,11 +90,11 @@ public class MySQLConnection {
                 q.setAnswer2(r.getString("answerB"));
                 q.setAnswer3(r.getString("answerC"));
                 q.setAnswer4(r.getString("answerD"));
-                q.setAnswer4(r.getString("answerE"));
+                q.setAnswer5(r.getString("answerE"));
                 System.out.println(q.toString());
         }
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("SQL error" + e);
         }
         return q;
     }

@@ -35,20 +35,28 @@ public class Question implements Serializable {
                 '}';
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer1() {
+        return answer1;
+    }
+
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
     public String getAnswer2() {
         return answer2;
     }
 
     public void setAnswer2(String answer2) {
         this.answer2 = answer2;
-    }
-
-    public String getAnswer5() {
-        return answer5;
-    }
-
-    public void setAnswer5(String answer5) {
-        this.answer5 = answer5;
     }
 
     public String getAnswer3() {
@@ -67,19 +75,11 @@ public class Question implements Serializable {
         this.answer4 = answer4;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getAnswer5() {
+        return answer5;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer1() {
-        return answer1;
-    }
-
-    public void setAnswer1(String answer1) {
-        this.answer1 = answer1;
+    public void setAnswer5(String answer5) {
+        this.answer5 = answer5;
     }
 }

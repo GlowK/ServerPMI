@@ -9,6 +9,7 @@ public class Service extends Thread {
 
     private Server server;
     private ClientConnection clientConnection;
+    private ArrayList<Question> shortQuestionList = new ArrayList<>();
 
     private static final int NUMBER_OF_QUESTIONS = 10;
     private static final int NUMBER_OF_QUESTIONS_IN_DB = 317;
@@ -26,7 +27,7 @@ public class Service extends Thread {
         MySQLConnection dbz = new MySQLConnection();
         dbz.initializeConnectionToDB();
 
-        ArrayList<Question> shortQuestionList = new ArrayList<>();
+
         for(int i = 0; i<NUMBER_OF_QUESTIONS ; i++){
             new Question();
             int randomNum = ThreadLocalRandom.current().nextInt(0, NUMBER_OF_QUESTIONS_IN_DB);
