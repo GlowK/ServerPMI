@@ -86,16 +86,54 @@ public class MySQLConnection {
         try{
             while(r.next()){
                 q.setQuestion(r.getString("question"));
+                if(r.wasNull()){
+                    q.setQuestion("");
+                }
                 q.setAnswer1(r.getString("answerA"));
+                if(r.wasNull()){
+                    q.setAnswer1("");
+                }
                 q.setAnswer2(r.getString("answerB"));
+                if(r.wasNull()){
+                    q.setAnswer2("");
+                }
                 q.setAnswer3(r.getString("answerC"));
+                if(r.wasNull()){
+                    q.setAnswer3("");
+                }
                 q.setAnswer4(r.getString("answerD"));
+                if(r.wasNull()){
+                    q.setAnswer4("");
+                }
                 q.setAnswer5(r.getString("answerE"));
+                if(r.wasNull()){
+                    q.setAnswer5("");
+                }
                 System.out.println(q.toString());
         }
         }catch(Exception e){
             System.out.println("SQL error" + e);
         }
         return q;
+    }
+
+    Answer getAnswerFromDB(int i){
+        Answer a = new Answer();
+        Statement s = createStatement(this.con);
+        String sql = "SELECT a1, a2, a3, a4, a5 from PMI.Answers where question_id =" + i + ";";
+        ResultSet r = executeQuery(s, sql);
+        try{
+            while(r.next()){
+                a.setA1(r.getBoolean("a1"));
+                a.setA2(r.getBoolean("a2"));
+                a.setA3(r.getBoolean("a3"));
+                a.setA4(r.getBoolean("a4"));
+                a.setA5(r.getBoolean("a5"));
+                System.out.println(a.toString());
+            }
+        }catch(Exception e){
+            System.out.println("SQL error" + e);
+        }
+        return a;
     }
 }

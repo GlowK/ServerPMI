@@ -10,9 +10,10 @@ public class Service extends Thread {
     private Server server;
     private ClientConnection clientConnection;
     private ArrayList<Question> shortQuestionList = new ArrayList<>();
+    private ArrayList<Answer> shortAnswerList = new ArrayList<>();
 
     private static final int NUMBER_OF_QUESTIONS = 10;
-    private static final int NUMBER_OF_QUESTIONS_IN_DB = 317;
+    private static final int NUMBER_OF_QUESTIONS_IN_DB = 10; //317
 
     Service(Server server, ClientConnection clientConnection) {
         this.server = server;
@@ -30,9 +31,12 @@ public class Service extends Thread {
 
         for(int i = 0; i<NUMBER_OF_QUESTIONS ; i++){
             new Question();
+            new Answer();
             int randomNum = ThreadLocalRandom.current().nextInt(0, NUMBER_OF_QUESTIONS_IN_DB);
             Question pytanko = dbz.getQuestionFromDB(randomNum);
+            Answer odpowiedz = dbz.getAnswerFromDB(randomNum);
             shortQuestionList.add(pytanko);
+            shortAnswerList.add(odpowiedz);
         }
 
         //System.out.println(shortQuestionList.size());
