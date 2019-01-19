@@ -47,7 +47,7 @@ public class Server {
         }
     }
 
-    void sendMessage(String message, ClientConnection sender) {
+    void sendMessage2(String message, ClientConnection sender) {
         //Pętla for-each powtarzająca ten sam kod dla każdego aktualnie podłączonego klienta
         for(ClientConnection clientConnection : this.clientConnections) {
             String fullMessage;
@@ -58,7 +58,18 @@ public class Server {
             fullMessage = dateFormat.format(date) + " " + sender.getUsername() + ": " + message;
 
             //Przeslanie wiadomosci po wczeniejsym dodaniu do niej aktualnej godziny i username'a klienta ktory nadał wiadomość.
-            clientConnection.getOutputPrintWriter().println(fullMessage);
+            //clientConnection.getOutputPrintWriter().println(fullMessage);
+        }
+    }
+
+    void sendMessage(String message, ClientConnection sender){
+        Message mes = new Message();
+        mes.setMessage(message);
+        try{
+            sender.getObjectOutputStream().writeObject(mes);
+            sender.getObjectOutputStream().reset();
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 

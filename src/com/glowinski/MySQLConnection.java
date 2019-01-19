@@ -34,7 +34,7 @@ public class MySQLConnection {
         return connection;
     }
 
-    static void closeConnection(Connection connection, Statement s) {
+    void closeConnection(Connection connection, Statement s) {
         System.out.print("\n Closing DB connection:");
         try {
             s.close();

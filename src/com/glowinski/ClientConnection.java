@@ -9,8 +9,9 @@ class ClientConnection {
     private Socket socket;
     private String username;
 
-    private BufferedReader input;
-    private PrintWriter output;
+    //private BufferedReader input;
+    //private PrintWriter output;
+    //private BufferedInputStream inFromClient;
 
     private ObjectOutputStream outToClient;
     private ObjectInputStream inFromClient;
@@ -19,8 +20,9 @@ class ClientConnection {
         try {
             this.socket = socket;
             this.username = username;
-            this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.output = new PrintWriter(socket.getOutputStream(),true);
+            //this.outToClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            //this.inFromClient = new BufferedInputStream(new ObjectInputStream(socket.getInputStream()));
+            //this.output = new PrintWriter(socket.getOutputStream(),true);
             this.outToClient = new ObjectOutputStream(socket.getOutputStream());
             this.inFromClient = new ObjectInputStream(socket.getInputStream());
         }
@@ -35,13 +37,13 @@ class ClientConnection {
     }
 
 
-    BufferedReader getInputBufferedReader() {
-        return this.input;
-    }
+   // BufferedReader getInputBufferedReader() {
+   //     return this.input;
+   //}
 
-    PrintWriter getOutputPrintWriter() {
-        return this.output;
-    }
+   // PrintWriter getOutputPrintWriter() {
+   //     return this.output;
+   // }
 
     ObjectOutputStream getObjectOutputStream(){
         return this.outToClient;
@@ -49,6 +51,10 @@ class ClientConnection {
 
     ObjectInputStream getObjectInputStream(){
         return this.inFromClient;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     String getUsername() {
