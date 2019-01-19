@@ -3,10 +3,7 @@ package com.glowinski;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Server {
@@ -44,21 +41,6 @@ public class Server {
         }
         catch(IOException error) {
             System.out.println("Server error: " + error.getMessage());
-        }
-    }
-
-    void sendMessage2(String message, ClientConnection sender) {
-        //Pętla for-each powtarzająca ten sam kod dla każdego aktualnie podłączonego klienta
-        for(ClientConnection clientConnection : this.clientConnections) {
-            String fullMessage;
-
-            //TODO: Print local time, not server time.
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-            Date date = new Date();
-            fullMessage = dateFormat.format(date) + " " + sender.getUsername() + ": " + message;
-
-            //Przeslanie wiadomosci po wczeniejsym dodaniu do niej aktualnej godziny i username'a klienta ktory nadał wiadomość.
-            //clientConnection.getOutputPrintWriter().println(fullMessage);
         }
     }
 

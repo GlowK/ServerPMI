@@ -1,7 +1,5 @@
 package com.glowinski;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.SocketTimeoutException;
@@ -26,15 +24,9 @@ public class Service extends Thread {
 
     @Override
     public void run() {
-        //String message;
-
-        //BufferedReader input = clientConnection.getInputBufferedReader();
-        //BufferedInputStream objectInput = clientConnection.getObjectInputStream();
         ObjectInputStream objectInput = clientConnection.getObjectInputStream();
-
         MySQLConnection dbz = new MySQLConnection();
         dbz.initializeConnectionToDB();
-
 
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
             new Question();
@@ -46,15 +38,12 @@ public class Service extends Thread {
             shortAnswerList.add(odpowiedz);
         }
 
-        //System.out.println(shortQuestionList.size());
+        System.out.println("Question set received...");
+        System.out.println("Answer set received...");
         int iterator = 0;
 
-        //Główne czynność obsługująca klienta
-        //W nieskończonej pętli czekaj na nadchodzącą wiadomośc a następnie zleć serwerowi rozesłąnie tej wiadomości do wszystkich
         try {
             while (true) {
-                //message = input.readLine();
-                //TODO: Need better disconnection/closing handle.
                 try {
                     Object obj;
                     obj = (Object) objectInput.readObject();
@@ -63,7 +52,7 @@ public class Service extends Thread {
                         if (mes.getMessage().equals("question++")) {
                             server.sendQuestion(shortQuestionList.get(iterator++), clientConnection);
                         }else if (mes.getMessage().equals("check")){
-                            System.out.println(compareAnswers(shortAnswerList,clientAnswerList));
+                            System.out.println("Client resutlt: " + compareAnswers(shortAnswerList,clientAnswerList) + " Sending...");
                             server.sendMessage(returnClientResult(compareAnswers(shortAnswerList,clientAnswerList)), clientConnection);
                         }
                     }else if (obj instanceof Answer){
@@ -75,17 +64,6 @@ public class Service extends Thread {
                     e.printStackTrace();
                 }
 
-                //}equals("exit"))
-                //  break;
-                //else if(message.equals("question++")){
-                //server.sendMessage("Pytanie 1: dupa,dupa", clientConnection);
-                //Question pytanko = new Question("Pytanie","Odpowiedz1", "Odpowiedz2", "Odpowiedz3", "Odpowiedz4");
-                //server.sendQuestion(shortQuestionList.get(iterator++), clientConnection);
-                //              }
-                //else
-                //Roześlij do wsztskich połączonych klientów poprzez serwer
-                //server.sendMessage(message, clientConnection);
-                //}
             }
         }catch (Exception e1){
             e1.printStackTrace();
@@ -99,12 +77,6 @@ public class Service extends Thread {
                 e.printStackTrace();
             }
         }
-        //} finally {
-        //    System.out.println("closing connection with this client");
-         //   clientConnection.closeConnection();
-         //   server.closeConnection(clientConnection);
-
-        //}
     }
 
     private void printClientAnswers(ArrayList<Answer> cl){
@@ -119,9 +91,9 @@ public class Service extends Thread {
         int iterator = 0;
         for(Answer ans : serverList){
             if(compareTwoSpecificAnswers(ans, clientList.get(iterator))){
-                System.out.println("sukces");
-                System.out.println(ans.toString());
-                System.out.println(clientList.get(iterator));
+                //System.out.println("sukces");
+                //System.out.println(ans.toString());
+                //System.out.println(clientList.get(iterator));
                 result++;
                 iterator++;
             }else{

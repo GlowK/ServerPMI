@@ -49,14 +49,14 @@ public class MySQLConnection {
 
     void initializeConnectionToDB(){
         if (driverInitialization())
-            System.out.print(" driver OK");
+            System.out.print(" Driver OK");
         else
             System.exit(1);
 
         con = connectToDatabase("18.197.197.247",
                 "PMI", "root", "Lamora");
         if (con != null)
-            System.out.print(" Connection OK\n");
+            System.out.print("Connection OK\n");
     }
 
     private static Statement createStatement(Connection connection) {
@@ -109,7 +109,7 @@ public class MySQLConnection {
                 if(r.wasNull()){
                     q.setAnswer5("");
                 }
-                System.out.println(q.toString());
+                //System.out.println(q.toString());
         }
         }catch(Exception e){
             System.out.println("SQL error" + e);
@@ -129,7 +129,7 @@ public class MySQLConnection {
                 a.setA3(r.getBoolean("a3"));
                 a.setA4(r.getBoolean("a4"));
                 a.setA5(r.getBoolean("a5"));
-                System.out.println(a.toString());
+                //System.out.println(a.toString());
             }
         }catch(Exception e){
             System.out.println("SQL error" + e);
