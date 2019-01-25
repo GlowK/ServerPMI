@@ -7,25 +7,19 @@ import java.net.Socket;
 class ClientConnection {
 
     private Socket socket;
-    private String username;
 
     private ObjectOutputStream outToClient;
     private ObjectInputStream inFromClient;
 
-    private ClientConnection(Socket socket, String username) {
+    public ClientConnection(Socket socket) {
         try {
             this.socket = socket;
-            this.username = username;
             this.outToClient = new ObjectOutputStream(socket.getOutputStream());
             this.inFromClient = new ObjectInputStream(socket.getInputStream());
         }
         catch(IOException error) {
             System.out.println("Server error: " + error.getMessage());
         }
-    }
-
-    ClientConnection(Socket socket) {
-        this(socket, "Anonymous");
     }
 
     ObjectOutputStream getObjectOutputStream(){
@@ -43,8 +37,8 @@ class ClientConnection {
     void closeConnection() {
         try {
             this.socket.close();
-        } catch (IOException error) {
-            System.out.println("Server error: " + error.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

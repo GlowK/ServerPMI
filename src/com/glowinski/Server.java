@@ -51,7 +51,7 @@ public class Server {
             sender.getObjectOutputStream().writeObject(mes);
             sender.getObjectOutputStream().reset();
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -60,12 +60,12 @@ public class Server {
             sender.getObjectOutputStream().writeObject(question);
             sender.getObjectOutputStream().reset();
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
     void closeConnection(ClientConnection clientConnection) {
-        System.out.println("ClientConnection closed with user");
+        System.out.println("ClientConnection closed");
         this.clientConnections.remove(clientConnection);
     }
 

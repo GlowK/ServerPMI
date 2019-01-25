@@ -1,8 +1,6 @@
 package com.glowinski;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -44,7 +42,6 @@ public class Service extends Thread {
 
         try {
             while (true) {
-                try {
                     Object obj;
                     obj = (Object) objectInput.readObject();
                     if (obj instanceof Message) {
@@ -60,22 +57,12 @@ public class Service extends Thread {
                         clientAnswerList.add(ans);
                         //printClientAnswers(clientAnswerList);
                     }
-                } catch (SocketTimeoutException e) {
-                    e.printStackTrace();
-                }
-
             }
         }catch (Exception e1){
-            e1.printStackTrace();
+                //e1.printStackTrace();
         }finally {
-            try{
-                if (clientConnection.getSocket() != null){
-                    clientConnection.getSocket().close();
-                    server.closeConnection(clientConnection);
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            server.closeConnection(clientConnection);
+            clientConnection.closeConnection();
         }
     }
 
@@ -104,7 +91,7 @@ public class Service extends Thread {
     }
 
     private String returnClientResult(int result){
-        String overallResult = new String();
+        String overallResult;
         overallResult = "Your overall result: "+ result +"/"+NUMBER_OF_QUESTIONS;
         return overallResult;
     }
